@@ -34,4 +34,7 @@ GROUP BY
   END
 ORDER BY revenue DESC;
 
-I would use QuickSight to make dashboards, but in my Lab environment I dont have permission to do that, so I downloaded the 3 cleansed parquet files and used them in Tableu.
+I would use QuickSight to make dashboards, but in my Lab environment I dont have permission to do that, so I downloaded the 3 cleansed parquet files and used them in Tableau
+
+~ $ aws s3 cp s3://sl-my-project-raw-data/cleansed/products/date=2025-12-26/part-00000-10703912-325f-49de-bdac-3193bf8fb9c2.c000.snappy.parquet ~/data/products_2025-12-26.parquet
+download: s3://sl-my-project-raw-data/cleansed/products/date=2025-12-26/part-00000-10703912-325f-49de-bdac-3193bf8fb9c2.c000.snappy.parquet to data/products_2025-12-26.parquet
