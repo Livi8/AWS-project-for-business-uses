@@ -38,3 +38,10 @@ I would use QuickSight to make dashboards, but in my Lab environment I dont have
 
 ~ $ aws s3 cp s3://sl-my-project-raw-data/cleansed/products/date=2025-12-26/part-00000-10703912-325f-49de-bdac-3193bf8fb9c2.c000.snappy.parquet ~/data/products_2025-12-26.parquet
 download: s3://sl-my-project-raw-data/cleansed/products/date=2025-12-26/part-00000-10703912-325f-49de-bdac-3193bf8fb9c2.c000.snappy.parquet to data/products_2025-12-26.parquet
+
+~ $ aws s3 cp "s3://sl-my-project-raw-data/raw/carts/date=\"2025-12-26\"/carts (1).json" ~/data/carts_2025-12-26.json
+download: s3://sl-my-project-raw-data/raw/carts/date="2025-12-26"/carts (1).json to data/carts_2025-12-26.json
+~ $ aws s3 cp s3://sl-my-project-raw-data/raw/products/date=2025-12-26/data.json ~/data/products_2025-12-26.json
+download: s3://sl-my-project-raw-data/raw/products/date=2025-12-26/data.json to data/products_2025-12-26.json
+~ $ aws s3 cp s3://sl-my-project-raw-data/raw/users/date=2025-12-26/data.json ~/data/users_2025-12-26.json
+download: s3://sl-my-project-raw-data/raw/users/date=2025-12-26/data.json to data/users_2025-12-26.json
