@@ -41,7 +41,18 @@ download: s3://sl-my-project-raw-data/cleansed/products/date=2025-12-26/part-000
 
 ~ $ aws s3 cp "s3://sl-my-project-raw-data/raw/carts/date=\"2025-12-26\"/carts (1).json" ~/data/carts_2025-12-26.json
 download: s3://sl-my-project-raw-data/raw/carts/date="2025-12-26"/carts (1).json to data/carts_2025-12-26.json
+
 ~ $ aws s3 cp s3://sl-my-project-raw-data/raw/products/date=2025-12-26/data.json ~/data/products_2025-12-26.json
 download: s3://sl-my-project-raw-data/raw/products/date=2025-12-26/data.json to data/products_2025-12-26.json
 ~ $ aws s3 cp s3://sl-my-project-raw-data/raw/users/date=2025-12-26/data.json ~/data/users_2025-12-26.json
 download: s3://sl-my-project-raw-data/raw/users/date=2025-12-26/data.json to data/users_2025-12-26.json
+
+
+
+# E-Commerce Data Pipeline on AWS
+
+## Documentation
+- [Stakeholders & Business Value](docs/stakeholders-and-value.md)
+- [Pipeline Architecture](docs/pipeline-architecture.md)
+- [KPIs](docs/kpis.md)
+- [Implementation](docs/implementation.md)
