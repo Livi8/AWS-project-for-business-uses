@@ -59,7 +59,7 @@ All the 3 tables can be seen and their schemas as well.
 ![implementation](../photos/26.png)
 ![implementation](../photos/27.png)
 
-## Analyses and report
+## Analytics and reporting
 
 ### Average order value
 
