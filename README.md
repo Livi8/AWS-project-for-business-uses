@@ -1,4 +1,21 @@
 # AWS project for business uses
+
+This project demonstrates a cloud-based data pipeline using AWS services to ingest,
+transform, and analyze e-commerce sales data. I used the github dummyjson repository as data source.
+
+My focus was to solve real life problem: using data to make better decisions.
+
+My business use case: 
+<br>-New e-commerce company growing rapidly
+<br>-Business wants to use data more effectively for decisions
+<br>-Expansion increases volume of product, customer, and sales data
+<br>-I am helping to build a scalable data pipeline to support this need
+
+Business requirements:
+<br>-understand product performance
+<br>-analyze customer behaviour
+<br>-improve operational and strategic decisions
+
 In a production AWS environment, this Lambda would be triggered weekly using an Amazon EventBridge cron rule. Due to restricted IAM permissions in the lab environment, the trigger could not be created, but the Lambda is designed to be schedule-ready.
 
 codes: SELECT userId, AVG(discountedTotal) AS avg_order_value
