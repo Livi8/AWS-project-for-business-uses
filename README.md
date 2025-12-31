@@ -16,7 +16,7 @@ My focus was to solve real life problem: using data to make better decisions.
 <br>-analyze customer behaviour
 <br>-improve operational and strategic decisions
 
-## Documentation
+## Documentation:
 - [Stakeholders & Business Value](docs/stakeholders-and-value.md)
 - [Pipeline Architecture](docs/pipeline-architecture.md)
 - [KPIs](docs/kpis.md)
