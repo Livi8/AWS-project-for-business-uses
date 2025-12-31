@@ -1,18 +1,18 @@
 # Stakeholders & Business Value
 
-## Target Stakeholders
-- Business Analysts
-- Sales and Marketing Teams
-- Product Managers
-- Data Analysts
-- Management and Decision Makers
+## Target Stakeholders:
+- business analysts
+- sales teams
+- marketing teams
+- product managers
+- data analysts
+- management
 
 ## Business Value
 This data pipeline enables the business to:
-- Analyze historical sales performance
-- Understand customer purchasing behavior
-- Identify high-performing product categories
-- Optimize pricing and discount strategies
+- analyze historical sales performance
+- understand customer purchasing behavior
+- identify high-performing product categories
+- optimize pricing and discount strategies
 
-By integrating transactional data with product and customer information, the business
-can make data-driven decisions to improve revenue and customer engagement.
+The goal is to improve revenue and customer engagement.
