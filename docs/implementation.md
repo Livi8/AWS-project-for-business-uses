@@ -1,86 +1,130 @@
 # Implementation
 
-## Ingestion:
-I created an Amazon S3 bucket called sl-my-project-raw-data. The purpose of it is to hold the raw data before transformation.
+## Data Ingestion
+
+I created an Amazon S3 bucket called `sl-my-project-raw-data` to serve as the landing zone for raw data before transformation.
+
 ![implementation](../photos/1.png)
 
-Then I uploaded the cart data from the github dummyjson repository with a date partition. In real life, it would be daily done and also automated using for example Lamdba function.
+I then uploaded the cart data from the GitHub dummyjson repository with a date partition. In production, this process would run daily and be automated using an AWS Lambda function.
 
 ![implementation](../photos/2.png)
+
 ![implementation](../photos/6.png)
+
 ![implementation](../photos/7.png)
 
-In case of the product and user data, I used the same data source but with a Lamdba funtion and uploaded to the same bucket with the appropriate folders and partitions. This Lambda would be triggered weekly using an Amazon EventBridge cron rule. Due to restricted IAM permissions in the lab environment, I could not create the trigger.
-code here
+For the product and user data, I used the same data source but implemented an AWS Lambda function to upload the data to the same bucket with appropriate folder structures and partitions. This Lambda function would be triggered weekly using an Amazon EventBridge cron rule. Due to restricted IAM permissions in the lab environment, I was unable to configure the trigger.
 
+```python
+# Lambda function code
+```
 
 ![implementation](../photos/8.png)
 
-
 ![implementation](../photos/9.png)
+
 ![implementation](../photos/10.png)
+
 ![implementation](../photos/11.png)
 
-## Transformation
-I used Amazon Glue to create metadata about the 3 dataset. I made a new database called raw-data-db and I used a Crawler to fill the tables.
+## Data Transformation
+
+I used AWS Glue to create metadata for the three datasets. I created a new database called `raw-data-db` and used a Crawler to populate the tables.
 
 ![implementation](../photos/12.png)
+
 ![implementation](../photos/13.png)
+
 ![implementation](../photos/14.png)
 
-
-The Crawler was successfully run so I got the 3 tables in my database.
+The Crawler ran successfully, creating three tables in the database.
 
 ![implementation](../photos/15.png)
+
 ![implementation](../photos/16.png)
 
-Also we can check the schema of each one, you can see the carts' as an example.
+We can examine the schema of each table. Below is an example showing the carts schema.
 
 ![implementation](../photos/17.png)
 
-But the json format is not the best to write queries on them, so I used ETL job to change the format to parquet. It is a columnar storage file format optimized for big data processing.
+However, JSON format is not optimal for writing queries. I used an ETL job to convert the data to Parquet format, which is a columnar storage file format optimized for big data processing.
 
-In the job, I defined the new folder called cleansed and saved the newly transformed data into each of them. In case of the cart data, I transformed it to be order items because it is more generally used. 
+In the ETL job, I defined a new folder called `cleansed` and saved the transformed data into each respective folder. For cart data, I transformed it into order items format, which is more generally applicable.
 
-![implementation](../photos/18.png)
-![implementation](../photos/19.png)
+
 ![implementation](../photos/20.png)
+
 ![implementation](../photos/21.png)
+
 ![implementation](../photos/22.png)
+
 ![implementation](../photos/23.png)
+
 ![implementation](../photos/24.png)
 
-I made a new database called cleansed-data-db, so the raw and transformed data are separated. All the 3 tables can be seen
+I created a new database called `cleansed-data-db` to separate raw and transformed data. All three tables are visible in this database.
 
 ![implementation](../photos/25.png)
 
-All the 3 tables can be seen and their schemas as well.
+The schemas for all three tables are available.
 
 ![implementation](../photos/26.png)
+
 ![implementation](../photos/27.png)
 
-## Analytics and reporting
+## Analytics and Reporting
 
-### Average order value
+### Average Order Value
 
-SELECT userId, AVG(discountedTotal) AS avg_order_value FROM order_items GROUP BY userId ORDER BY avg_order_value DESC;
+```sql
+SELECT userId, AVG(discountedTotal) AS avg_order_value
+FROM order_items
+GROUP BY userId
+ORDER BY avg_order_value DESC;
+```
+
 ![implementation](../photos/28.png)
-The average order value shows how much, on average, each user spends per order. Some users, like user 177 and user 33, spend very high amounts, while others spend much less. This indicates that a small number of users are placing very high-value orders, which significantly affects the overall average.
 
-### Revenue by categories
+The average order value metric reveals spending patterns per user. Users such as User 177 and User 33 show significantly higher spending compared to others. This distribution indicates that a small segment of users places high-value orders, which disproportionately influences the overall average.
 
-SELECT p.category, SUM(o.discountedTotal) AS revenue FROM order_items o JOIN products p ON o.productId = p.id GROUP BY p.category ORDER BY revenue DESC;
+### Revenue by Category
+
+```sql
+SELECT p.category, SUM(o.discountedTotal) AS revenue
+FROM order_items o
+JOIN products p ON o.productId = p.id
+GROUP BY p.category
+ORDER BY revenue DESC;
+```
 
 ![implementation](../photos/29.png)
 
-The revenue by category tells us how much money each product category has generated. Categories with higher revenue are the most popular or high-priced items, while categories with lower revenue are less impactful to total income. This helps identify which product types are driving the business’s earnings.
+Revenue by category analysis shows the income generated by each product category. Higher-revenue categories represent either popular items or higher-priced products. This insight helps identify which product types drive business earnings and informs inventory and marketing decisions.
 
+### Revenue by Age Group
 
-Revenue by age group
-
-SELECT CASE WHEN u.age < 25 THEN 'Under 25' WHEN u.age BETWEEN 25 AND 34 THEN '25-34' WHEN u.age BETWEEN 35 AND 44 THEN '35-44' ELSE '45+' END AS age_group, SUM(o.discountedTotal) AS revenue FROM order_items o JOIN users u ON o.userId = u.id GROUP BY CASE WHEN u.age < 25 THEN 'Under 25' WHEN u.age BETWEEN 25 AND 34 THEN '25-34' WHEN u.age BETWEEN 35 AND 44 THEN '35-44' ELSE '45+' END ORDER BY revenue DESC;
+```sql
+SELECT 
+    CASE 
+        WHEN u.age < 25 THEN 'Under 25' 
+        WHEN u.age BETWEEN 25 AND 34 THEN '25-34' 
+        WHEN u.age BETWEEN 35 AND 44 THEN '35-44' 
+        ELSE '45+' 
+    END AS age_group,
+    SUM(o.discountedTotal) AS revenue
+FROM order_items o
+JOIN users u ON o.userId = u.id
+GROUP BY 
+    CASE 
+        WHEN u.age < 25 THEN 'Under 25' 
+        WHEN u.age BETWEEN 25 AND 34 THEN '25-34' 
+        WHEN u.age BETWEEN 35 AND 44 THEN '35-44' 
+        ELSE '45+' 
+    END
+ORDER BY revenue DESC;
+```
 
 ![implementation](../photos/30.png)
 
-The revenue by age group shows which age segments contribute most to the total revenue. Users aged 25-34 generate the highest revenue, followed by those aged 35-44. Users aged 45 and above generate less revenue, and those under 25 contribute very little. This suggests that the business earns most of its income from adults between 25 and 34 years old, and younger customers are not a major source of revenue.
-
+Revenue by age group analysis identifies which demographic segments contribute most to total revenue. Users aged 25-34 generate the highest revenue, followed by those aged 35-44. Users aged 45 and above contribute less, while those under 25 represent the smallest segment. This pattern suggests that the primary revenue source comes from adults in the 25-34 age range.
