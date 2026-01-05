@@ -259,6 +259,6 @@ ORDER BY revenue DESC;
 
 <img src="../photos/30.png" alt="implementation" width="600"/>
 
-Revenue by age group analysis identifies which demographic segments contribute most to total revenue. Users aged 25-34 generate the highest revenue, followed by those aged 35-44. Users aged 45 and above contribute less, while those under 25 represent the smallest segment. This pattern suggests that the primary revenue source comes from adults in the 25-34 age range.
+Revenue by age group identifies which demographic segments contribute most to total revenue. Users aged 25-34 generate the highest revenue, followed by those aged 35-44. Users aged 45 and above contribute less, while those under 25 represent the smallest segment. This pattern suggests that the primary revenue source comes from adults in the 25-34 age range.
 
 To gather more insights I would use QuickSight to make dashboards, but in my Lab environment I do not have permission to do that.
