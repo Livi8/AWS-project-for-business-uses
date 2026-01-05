@@ -218,7 +218,7 @@ ORDER BY avg_order_value DESC;
 
 <img src="../photos/28.png" alt="implementation" width="600"/>
 
-The average order value shows spending patterns per user. Users such as User 177 and User 33 show significantly higher spending compared to others. This distribution indicates that a small segment of users places high-value orders, which disproportionately influences the overall average.
+The average order value shows spending patterns per user. Users such as User 177 and User 33 show significantly higher spending compared to others. In this case, I have only 45 users, which is very few, but it already shows that a small number of customers contribute disproportionately to total revenue. This suggests that focusing on high-value users could have a big impact on business performance.
 
 ### Revenue by Category
 
